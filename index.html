@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pet Adoption Center</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: #f8f8f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: white;
+      width: 100%;
+      padding: 15px 30px;
+      margin: 0px auto 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    nav{
+      display: flex;
+      margin-right: 120px;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav-item {
+      position: relative;
+      padding: 5px 0;
+      color: #555;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-item:hover {
+      color: #4a6bff;
+    }
+
+    .nav-item.active {
+      color: #4a6bff;
+    }
+
+    .nav-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #4a6bff;
+      border-radius: 2px;
+    }
+
+    .login-btn {
+      background-color: #4a6bff;
+      color: rgb(248, 241, 241);
+      padding: 8px 20px;
+      border: solid #4a6bff;
+      border-radius: 50px;
+      margin-left: 330px;
+      position: absolute;
+      margin-top: -30px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #f5f5f9;
+      color: black;
+      
+    }
+
+    .pet-banner {
+      width: 100%;
+      background-color: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 60px;
+      margin: 2px auto;
+      text-align: center;
+      border-radius: 12px;
+    }
+
+    .pet-banner h1 {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 20px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .pet-banner p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+
+ 
+
+    .cta-button {
+      display: inline-block;
+      background-color: #4a6bff;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(74, 107, 255, 0.3);
+    }
+
+    .cta-button:hover {
+      background-color: #3a5bef;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(74, 107, 255, 0.4);
+    }
+
+    
+
+
+
+    .carousel {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 50px;
+}
+
+.dog-card {
+  width: 200px;
+  height: 250px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dog-card img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 20px;
+  object-fit: contain;
+}
+
+.pink {
+  background-color: #ffb6c1;
+}
+.purple {
+  background-color: #d8b4fe;
+  margin-top: -20px;
+}
+.yellow {
+  background-color: #ffe599;
+}
+
+.carousel-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: #ccc;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot.active {
+  background-color: #333;
+}
+
+.arrow {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+
+
+.features-section {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.features-header h2 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  font-weight: 800;
+  color: #000;
+}
+
+.features-header p {
+  font-size: 1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+
+.features-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.feature-card {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 30px 20px;
+  width: 220px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.feature-card.active {
+  background-color: #b692f6;
+  color: white;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.icon {
+  font-size: 30px;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.icon.pink {
+  background-color: #f472b6;
+}
+
+.icon.purple {
+  background-color: #a855f7;
+}
+
+.icon.yellow {
+  background-color: #facc15;
+}
+
+.icon.violet {
+  background-color: #8b5cf6;
+}
+
+.feature-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  font-size: 0.9rem;
+}
+
+
+.pet-categories {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .categories-title {
+            font-size: 2.5em;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .categories-title span {
+            font-weight: 400;
+        }
+
+        .categories-description {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            color: #777;
+        }
+
+        .pet-cards-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            width: 200px;
+            border: 1px solid #eee;
+            border-radius: 20px;
+            padding: 20px 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        .pet-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .pet-avatar img {
+            width: 100%;
+            height: auto;
+        }
+
+        .pet-name {
+            font-size: 1.1em;
+            text-align: center;
+            font-weight: 600;
+            margin: 10px 0 5px;
+        }
+
+        .pet-type {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+       
+
+       
+
+.testimonial-section {
+  text-align: center;
+  padding: 60px 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.testimonial-section h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.testimonial-section .subtitle {
+  color: #888;
+  font-size: 1rem;
+  margin-bottom: 40px;
+}
+
+.testimonial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.testimonial-img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.testimonial-content {
+  max-width: 500px;
+  text-align: left;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.user-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.role {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.quote {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.navigation button {
+  background: #f0f0f0;
+  border: none;
+  padding: 10px 15px;
+  margin: 0 5px;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+       
+
+      
+
+        
+.container {
+  background: linear-gradient(to right, #a24ef8, #ba74fd);
+  border-radius: 20px;
+  padding: 50px 200px;
+  margin: 50px auto;
+  max-width: 900px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  color: white;
+  text-align: center;
+}
+
+.content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.content p {
+  font-size: 1rem;
+  margin-bottom: 25px;
+}
+
+.content button {
+  padding: 12px 30px;
+  background-color: white;
+  color: #6b29c6;
+  border: none;
+  border-radius: 999px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.content button:hover {
+  background-color: #8f8c8c;
+}
+
+.dog {
+  width: 120px;
+}
+
+.circle {
+  border: 2px solid white;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+}
+
+.circle img {
+  width: 100px;
+  height: auto;
+  object-fit: contain;
+}
+
+.dog-left {
+  position: absolute;
+  left: 30px;
+  bottom: 20px;
+}
+
+.dog-right {
+  position: absolute;
+  right: 30px;
+  bottom: 20px;
+}
+     
+
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  nav {
+    margin: 10px 0 0 0;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .login-btn {
+    margin-left: 0;
+    margin-top: 10px;
+    position: static;
+    align-self: flex-end;
+  }
+
+  .pet-banner {
+    padding: 40px 20px;
+  }
+
+  .pet-banner h1 {
+    font-size: 2rem;
+  }
+
+  .carousel {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .dog-card {
+    width: 180px;
+    height: 220px;
+  }
+
+  .features-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feature-card {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  .testimonial {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .testimonial-content {
+    text-align: center;
+  }
+
+  .container {
+    flex-direction: column;
+    padding: 40px 30px;
+  }
+
+  .dog-left, .dog-right {
+    position: static;
+    margin: 20px 0;
+  }
+
+  .content {
+    max-width: 100%;
+  }
+
+  .pet-cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .category-card {
+    width: 90%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 320px) {
+  .navbar {
+    padding: 10px;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  nav {
+    gap: 10px;
+    font-size: 0.95rem;
+  }
+
+  .login-btn {
+    padding: 6px 16px;
+    font-size: 0.9rem;
+  }
+
+  .pet-banner h1 {
+    font-size: 1.6rem;
+  }
+
+  .pet-banner p {
+    font-size: 0.95rem;
+  }
+
+  .cta-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+
+  .dog-card {
+    width: 150px;
+    height: 180px;
+  }
+
+  .features-section {
+    padding: 40px 10px;
+  }
+
+  .features-header h2 {
+    font-size: 2rem;
+  }
+
+  .testimonial-section h1 {
+    font-size: 2rem;
+  }
+
+  .testimonial-img {
+    width: 180px;
+    height: 180px;
+  }
+
+  .container {
+    padding: 30px 20px;
+  }
+
+  .content h1 {
+    font-size: 2rem;
+  }
+
+  .content p {
+    font-size: 0.95rem;
+  }
+
+  .content button {
+    padding: 10px 20px;
+  }
+
+  .circle img {
+    width: 80px;
+  }
+
+  .pet-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .pet-name {
+    font-size: 1rem;
+  }
+
+  .pet-type {
+    font-size: 0.85rem;
+  }
+}
+
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+
+  align-items: flex-start;
+  background: linear-gradient(to right, #d3d3d3, white);
+  padding: 50px 280px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.footer-left {
+  flex: 1;
+  /* position: absolute; */
+  /* margin-right: 120px; */
+  color: #333;
+}
+
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 50px;
+  margin-left: 0px;
+  gap: 10px;
+}
+
+.footer-icons a {
+  margin: 0 5px;
+  color: #8e44ad;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.footer-links a:hover {
+  color: #8e44ad;
+}       
+
+   
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">PetShow</div>
+    <div class="nav-links">
+    <nav>    
+      <a href="#" class="nav-item active">Home</a>
+      <a href="#" class="nav-item">Collection</a>
+      <a href="#pets" class="nav-item">All Pet</a>
+      <a href="#" class="nav-item">Contact</a>
+    </nav>
+    <div  class="login-btn">
+      
+      <a href="#">Login</a>
+    </div>
+    </div>
+  </div>
+
+  <div class="pet-banner">
+    <h1>The best place to get <br> your favorite pet without <br> any doubt</h1>
+    <p>Lorem ipsum dolor sit amet consectetur. At pellentesque <br> neque semper odio massa.</p>
+    <a href="#" class="cta-button">Get Started Now</a>
+  </div>
+
+
+  <section class="carousel">
+    <div class="dog-card pink">
+      <img src="/Techo-File/img/dog-removebg-preview.png" alt="A happy dog">
+
+    </div>
+    <div class="dog-card purple">
+      <img src="/Techo-File/img/dog_2-removebg-preview (1).png" alt="Cartoon Shih Tzu">
+    </div>
+    <div class="dog-card yellow">
+      <img src="/Techo-File/img/dog1-removebg-preview.png" alt="Beagle Puppy">
+    </div>
+  </section>
+
+  <div class="carousel-nav">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="arrow">→</span>
+  </div>
+
+
+
+
+
+  <section class="features-section">
+    <div class="features-header">
+      <h2>Explore our features</h2>
+      <p>Lorem ipsum dolor sit amet consectetur. Atellen tesque <br> neque semper odio massa.</p>
+    </div>
+    <div class="features-container">
+      <div class="feature-card">
+        <div class="icon pink">⧉</div>
+        <h3>Multi-color Pet</h3>
+        <p>Lorem ipsum dolor sit amet consectetur. It is Atellen test.</p>
+      </div>
+      <div class="feature-card active">
+        <div class="icon purple">⧉</div>
+        <h3>Quality Pet</h3>
+        <p>Lorem ipsum dolor sit amet consectetur. It is Atellen test.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon yellow">⧉</div>
+        <h3>Doctor Advise</h3>
+        <p>Lorem ipsum dolor sit amet consectetur. It is Atellen test.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon violet">⧉</div>
+        <h3>Home Delivery</h3>
+        <p>Lorem ipsum dolor sit amet consectetur. It is Atellen test.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="pets" class="pet-categories">
+    <h2 class="categories-title">Find our all category</h2>
+    <p class="categories-description">Lorem ipsum dolor sit amet <br> consectetur. Atellen tesque neque semper odio massa.</p>
+    
+    <div class="pet-cards-container">
+        <div class="category-card">
+            <div class="pet-avatar">
+                <img src="https://placedog.net/200/200?id=17" alt="Ranjhia Mi">
+            </div>
+            <h3 class="pet-name">Kappa Jan</h3>
+            <p>Racing Dog</p>
+  </div>
+  <div class="category-card">
+    <div class="pet-avatar">
+        <img src="https://placedog.net/200/200?id=1" alt="Ranjhia Mi">
+    </div>
+    <h3 class="pet-name">Ranjhi</h3>
+    <p>Sust Dog</p>
+</div>
+<div class="category-card">
+  <div class="pet-avatar">
+      <img src="https://placedog.net/200/200?id=2" alt="Ranjhia Mi">
+  </div>
+  <h3 class="pet-name">Black Fodge</h3>
+  <p>Investigate Dog</p>
+</div>
+<div class="category-card">
+  <div class="pet-avatar">
+      <img src="https://placedog.net/200/200?id=7" alt="Ranjhia Mi">
+  </div>
+  <h3 class="pet-name">Ranjhi</h3>
+  <p>Mishri Puppy</p>
+</div>
+  </div>
+  </section>
+
+
+
+  <div class="testimonial-section">
+    <h1>Pet lovers words from <br><span>our record</span></h1>
+    <p class="subtitle">Lorem ipsum dolor sit amet consectetur. Atellen tesque neque semper odio massa.</p>
+
+    <div class="testimonial">
+      <img src="/Techo-File/img/dog2.jpeg" alt="Pet" class="testimonial-img">
+
+      <div class="testimonial-content">
+        <div class="user-info">
+          <img src="/Techo-File/img/men-pic.jpeg" alt="Arnold Jeff" class="user-img">
+          <div>
+            <h3>Arnold Jeff</h3>
+            <p class="role">Pet Collector</p>
+          </div>
+        </div>
+
+        <p class="quote">“Lorem ipsum dolor sit amet consectetur. Atellen tesque neque semper odio massa. Lorem ipsum dolor sit amet consectetur. Atellen tesque neque semper.”</p>
+
+        <div class="navigation">
+          <button>&larr;</button>
+          <button>&rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="dog dog-left">
+      <div class="circle">
+        <img src="/Techo-File/img/dog3-removebg-preview.png" alt="Dog 1">
+      </div>
+    </div>
+
+    <div class="content">
+      <h1>Get special gift!</h1>
+      <p>Lorem ipsum dolor sit amet consectetur. Atellen tesque neque semper odio massa.</p>
+      <button>Contact Us</button>
+    </div>
+
+    <div class="dog dog-right">
+      <div class="circle">
+        <img src="/Techo-File/img/dog4-removebg-preview.png" alt="Dog 2">
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <footer class="footer">
+    <div class="footer-left">
+      <p>Lorem ipsum dolor sit amet consectetur. Nunc semper odio massa.ipsum dolor sit amet consectetur. Nunc semper odio massa</p>
+    </div>
+    <div class="footer-right">
+      <div class="footer-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <div class="footer-links">
+        <a href="#">Collection</a>
+        <a href="#">All Pet</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+  
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
